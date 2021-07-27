@@ -1,0 +1,68 @@
+@font-face{
+	font-family: bio;
+	src: url("BIOWEAPON.ttf");
+}
+@font-face{
+	font-family: mess;
+	src: url("myfont.ttf");
+}
+body{
+	background:black;
+}
+.square{
+	width: 30%;
+	background-color: purple;
+	padding-bottom: 30%;
+	float: left;
+	margin: 1.6%;
+	border-radius: 20%;
+}
+#container{
+	max-width: 600px;
+	margin: 0 auto;
+	text-align: center;
+	font-family: bio;
+	font-size: 60px;
+	color: white;
+}
+h1{
+	color: white;
+	line-height: 1.2;
+	text-align: center;
+	font-family: bio;
+	font-size: 40px;
+	margin: 0;
+	background-color: rgb(197, 57, 56);
+	padding: 20px 0;
+}
+#picked{
+	font-size: 50px;
+}
+#message{
+	color: blue;
+	text-align: center;
+	font-family: mess;
+}
+#strip{
+	background-color: white;
+	height: 30px;
+	text-align: center;
+	border-bottom-left-radius: 25px;
+	border-bottom-right-radius: 25px;
+}
+button{
+	background: none;
+	color: #0277bd;
+	font-size: 15px;
+	border:none;
+	height: 100%;
+	outline: none;
+	font-family: bio;
+}
+button:hover{
+	background-color: #0277bd;
+	border: none;
+	color: white;
+	transition: all .4s ease;
+	-webkit-transition: all .4s ease;
+}
