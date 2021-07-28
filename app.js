@@ -1,6 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb+srv://siddharth:Naruto2619*@cluster0.gqdbh.mongodb.net/mydb?retryWrites=true&w=majority";
-
 var fs = require("fs");
 var express = require('express');
 var path = require('path');
@@ -49,19 +48,16 @@ app.post('/auth',function(req,resul){
               console.log("user already exists"); 
             }
             else{
-              dbo.collection("customers").insertOne(myobj, function(err, res) {
-                if (err) throw err;
+              console.log("ok");
+              dbo.collection("customers").insertOne(myobj).then( items => {
+                console.log(items);
+              }).then(items=>{db.close();})
                 console.log("1 document inserted");
-                db.close();
-              });
               resul.redirect("/homepage");
             }
-            db.close();
-          })
-         
+          });
         });
     }
-    
 });
 
 var server = app.listen(3000);
