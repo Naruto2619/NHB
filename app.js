@@ -18,6 +18,9 @@ app.get('/',function(req,res){
 app.get('/nummem',function(req,res){
     res.sendFile(path.resolve(__dirname,'./numgame/numgame.html'))
 })
+app.get('/typing',function(req,res){
+  res.sendFile(path.resolve(__dirname,'./html/typing.html'))
+})
 app.post('/auth',function(req,resul){
     if(req.body.username==null){
         myobj = {"email":req.body.email,"password":req.body.password}
@@ -27,7 +30,10 @@ app.post('/auth',function(req,resul){
           dbo.collection("customers").find(myobj).toArray(function(err,res){
             if(err) throw err;
             if(res.length===0){
-              
+              console.log("sign up instead");
+            }
+            else{
+              resul.redirect("/homepage");
             }
             db.close();
           });
@@ -38,17 +44,21 @@ app.post('/auth',function(req,resul){
         MongoClient.connect(url, function(err, db) {
           if (err) throw err;
           var dbo = db.db("mydb");
-          dbo.collection("customers").find(myobj).toArray(function(err,res){
-            if(err) throw err;
-            if(res){
+          dbo.collection("customers").find({"email":myobj["email"]}).toArray().then(items=>{
+            if(items.length>0){
+              console.log("user already exists"); 
+            }
+            else{
+              dbo.collection("customers").insertOne(myobj, function(err, res) {
+                if (err) throw err;
+                console.log("1 document inserted");
+                db.close();
+              });
+              resul.redirect("/homepage");
             }
             db.close();
-          });
-          dbo.collection("customers").insertOne(myobj, function(err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            db.close();
-          });
+          })
+         
         });
     }
     

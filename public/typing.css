@@ -1,15 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,100&display=swap');
 @font-face{
 	font-family: myfont;
-	src: url('assets\\myfont.ttf');
+	src: url('assets/myfont.ttf');
 }
 @font-face{
 	font-family: scores;
-	src: url('assets\\score.ttf');
+	src: url('assets/score.ttf');
 }
 @font-face{
 	font-family: generate;
-	src: url('assets\\generate.ttf');
+	src: url('assets/generate.ttf');
 }
+
 
 #head{
 	text-align: center;	
@@ -36,7 +38,7 @@ body{
 	text-align: center;
 	width: 100%;
 	font-size: 35px;
-	color: white;
+	color: black;
 	font-family: generate;
 }
 .container{
@@ -69,7 +71,7 @@ body{
 }
 #timer{
 	text-align: center;
-	color: white;
+	color: black;
 }
 #scoreboard{
 	position: absolute;
@@ -90,7 +92,7 @@ body{
 }
 #correct{
 	text-align: center;
-	color: white;
+	color: black;
 	font-weight: bold;
 	font-size: 35px;
 	width: 140px;
@@ -98,7 +100,7 @@ body{
 }
 #wrong{
 	text-align: center;
-	color: white;
+	color: black;
 	font-weight: bold;
 	font-size: 35px;
 	width: 140px;
@@ -107,20 +109,22 @@ body{
 }
 #board{
 	text-align: center;
-	color: white;
+	color: black;
 	font-size: 30px;
 	font-family: scores;
 	margin: 0;
 }
 #corr{
-	color: green;
+	color:black;
+	font-family: "Roboto Mono";
 	font-weight: bold;
 	font-size: 20px;
-	margin: 0;
+	margin: 5px;
 }
 #wron{
-	color: red;
+	color: black;
+	font-family: "Roboto Mono";
 	font-weight: bold;
 	font-size: 20px;
-	margin: 0;
+	margin: 5px;
 }

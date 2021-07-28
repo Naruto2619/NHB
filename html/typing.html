@@ -3,41 +3,41 @@
 
 <head>
   <title>Typing test</title>
-  <script src="Scripts/require.js" data-main="/Recruiter/temp-search/App/main"></script>
+  <script src="/randomWord.js"></script>
    <link rel="stylesheet" type="text/css" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" type="text/css" href="typing.css">
+  <link rel="stylesheet" type="text/css" href="/typing.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body>
 	<h1 id="head">Typing Test</h1>
 	<div id="scoreboard">
-		<img src="assets\score.png">
-		<a href="#"></a>
 		<div class="board corr wron">
 			<p id="board">SCORE</p>
 			<p id="corr" hidden>CORRECT : <span id="correct"></span></p>
 			<p id="wron" hidden>WRONG : <span id="wrong"></span></p>
 		</div>
 	</div>
+	<div style="height: 50px;">
+
+	</div>
 	<div class="container">
-		<img src="assets\mainbg.png">
-		<h1 id="timer"></h1>
+		<p style="text-align:center;font-family: scores;">Time Left : <h1 id="timer"></h1></p>
 		<h3 id="generate"></h3>
 		<div id="textbox">
 			<audio id="wrongr" controls style="display:none">
- 			 	<source id="sauce" src="assets\wrong.mp3" type="audio/mp3">
+ 			 	<source id="sauce" src="assets/wrong.mp3" type="audio/mp3">
 			</audio>
 			<audio id="gameover" controls style="display:none">
- 			 	<source id="sauce" src="assets\death.wav" type="audio/wav">
+ 			 	<source id="sauce" src="assets/death.wav" type="audio/wav">
 			</audio>
 			<audio id="success" controls style="display:none">
- 			 	<source id="sauce" src="assets\success.wav" type="audio/wav">
+ 			 	<source id="sauce" src="assets/success.wav" type="audio/wav">
 			</audio>
 			<input type="text" name="" id="input" disabled><br><br>
 			<button id="start" onclick="start()">Start</button>
 		</div>
 	</div>
-	<script type="text/javascript" src="typing.js"></script>
+	<script type="text/javascript" src="/typing.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,4 @@
+var words = window.city;
 var header = $("#head")[0];
 var input = $("#input")[0];
 var generate = $("#generate")[0];
@@ -13,14 +14,6 @@ var wro = $("#wrong")[0];
 var scoreboard = $("#scoreboard")[0];
 var gameover = document.getElementById("gameover");
 var success = document.getElementById("success");
-var sentences=["Topic sentences are similar to mini thesis",
- "statements Like a thesis statement She wondered ",
- "if the note had reached him She",
- "scolded herself for not handing it to",
- "him in person She trusted her friend",
- "but so much could happen She waited",
-  "impatiently for word."
- ];
 function start(){
 $("#corr")[0].hidden=false;
 $("#wron")[0].hidden=false;
@@ -31,11 +24,11 @@ if(!timer) {
 	}, 1000);
 }
 input.disabled=false;
-var result = sentences[sentencenum].split(" ");
-generate.textContent=sentences[sentencenum];	
+var result = words(7);
+generate.textContent=result.join(" ");
 	$("#start")[0].style.visibility="hidden";
 $("#input").on("keypress",function(event){
-	generate.style.color="white";
+	generate.style.color="black";
 	if(sentencenum===7){
 		generate.textContent="GREAT JOB";
 		input.disabled=true;
@@ -46,8 +39,8 @@ $("#input").on("keypress",function(event){
 	}
 	if(index===7){
 		sentencenum++;
-		result = sentences[sentencenum].split(" ");
-		generate.textContent=sentences[sentencenum];
+		result = words(7);
+		generate.textContent=result.join(" ");
 		index=0;
 	}
 });
