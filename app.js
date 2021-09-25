@@ -3,14 +3,16 @@ var url = "mongodb+srv://siddharth:Naruto2619*@cluster0.gqdbh.mongodb.net/mydb?r
 var fs = require("fs");
 var express = require('express');
 var path = require('path');
-var http = require('http');
 var bodyParser = require('body-parser');
 var app = new express();
+const cors = require("cors")
+var server = require('http').createServer(app);
 app.use( bodyParser.json() );       
 app.use(bodyParser.urlencoded({     
   extended: true
 })); 
 app.use(express.static('./public'));
+app.use(cors())
 app.get('/',function(req,res){
     res.sendFile(path.resolve(__dirname,'./html/index.html'));
 });
@@ -20,6 +22,9 @@ app.get('/nummem',function(req,res){
 app.get('/typing',function(req,res){
   res.sendFile(path.resolve(__dirname,'./html/typing.html'))
 })
+app.get('/homepage',function(req,res){
+  res.sendFile(path.resolve(__dirname,'./html/homepage.html'))
+});
 app.post('/auth',function(req,resul){
     if(req.body.username==null){
         myobj = {"email":req.body.email,"password":req.body.password}
@@ -29,7 +34,7 @@ app.post('/auth',function(req,resul){
           dbo.collection("customers").find(myobj).toArray(function(err,res){
             if(err) throw err;
             if(res.length===0){
-              console.log("sign up instead");
+              resul.sendFile(path.resolve(__dirname,'./html/index.html'));
             }
             else{
               resul.redirect("/homepage");

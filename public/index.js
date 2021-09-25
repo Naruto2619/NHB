@@ -1,7 +1,9 @@
 var emailfield = document.getElementById("emailfield");
+var pass = document.getElementById("password");
 var signupbutt = document.getElementById("signup");
 var newdiv  = document.createElement('div');
 newdiv.setAttribute("id","usernamefield");
+var butt = document.getElementById("sub");
 
 function showSign(){
     newdiv.innerHTML = `<br><div class="form-group">
