@@ -1,13 +1,14 @@
 @font-face{
 	font-family: bio;
-	src: url("BIOWEAPON.ttf");
+	src: url("/assets/BIOWEAPON.ttf");
 }
 @font-face{
 	font-family: mess;
-	src: url("myfont.ttf");
+	src: url("/assets/myfont.ttf");
 }
 body{
 	background:black;
+	margin: 0;
 }
 .square{
 	width: 30%;
@@ -65,4 +66,45 @@ button:hover{
 	color: white;
 	transition: all .4s ease;
 	-webkit-transition: all .4s ease;
+}
+#scoreboard{
+	background-color:black;
+	position: absolute;
+	width: 200px;
+	height:120px;
+	border:2px solid white;
+	border-top-left-radius: 32px;
+	border-bottom-left-radius: 32px;
+	transition: 0.3s;
+	right: 0;
+}
+#livs{
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 35px;
+	width: 140px;
+	margin: 0;
+}
+#sped{
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	font-size: 35px;
+	width: 140px;
+	margin: 0;
+}
+#lives{
+	color:white;
+	font-family: "bio";
+	font-weight: bold;
+	font-size: 15px;
+	margin: 5px;
+}
+#scer{
+	color: white;
+	font-family: "bio";
+	font-weight: bold;
+	font-size: 15px;
+	margin: 5px;
 }

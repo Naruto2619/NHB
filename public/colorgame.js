@@ -1,12 +1,19 @@
 var colors=generaterand(6);
 var life = 5;
+var score = 0;
 var squares= document.getElementsByClassName('square');
 var pickedcolor = generatecolor();
 var message=document.getElementById('message');
 var pick = document.getElementById('picked');
 var head = document.getElementById('head');
 var reset= document.querySelector("#reset");
+var livs = document.getElementById("livs");
+livs.textContent =5;
+var sped = document.getElementById("sped");
+sped.textContent = 0;
+var scoreboard = document.getElementById("scoreboard");
 reset.addEventListener("click", function() {
+	scoreboard.style.right = 0;
 	colors=generaterand(6);
 	pickedcolor = generatecolor();
 	pick.textContent=colors[pickedcolor];
@@ -23,7 +30,8 @@ for(var i=0;i<squares.length;i++)
 	if(this.style.backgroundColor===colors[pickedcolor])
 	{
 		message.textContent="Correct";
-		changeall(colors[pickedcolor]); 
+		sped.textContent = ++score;
+		changeall(colors[pickedcolor]);
 	}
 	else{
 		if(life>1){
@@ -31,11 +39,21 @@ for(var i=0;i<squares.length;i++)
 			this.style.backgroundColor= "black";
 			message.textContent="Try Again";
 		}
+
 		else{
 			message.textContent="";
+			life--;
 			document.getElementById("container").innerHTML="<br><br>game over";
+			$.post("/request",
+			{
+			   finalscore : score,
+			},
+			function (data, status) {
+			   console.log(data);
+			});
 			reset.disabled=true;
 		}
+		livs.textContent = life;
 	}
 })
 }
