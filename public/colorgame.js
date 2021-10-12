@@ -43,14 +43,19 @@ for(var i=0;i<squares.length;i++)
 		else{
 			message.textContent="";
 			life--;
-			document.getElementById("container").innerHTML="<br><br>game over";
-			$.post("/request",
-			{
-			   finalscore : score,
-			},
-			function (data, status) {
-			   console.log(data);
-			});
+			data = {score,"game":"rgb"}
+			const options = {
+				method : "POST",
+				body : JSON.stringify(data),
+				headers : {
+					'Content-type' : 'application/json'
+				}
+			}
+			fetch('/rgbscore',options)
+			document.getElementById("container").innerHTML=`
+			<br><br>game over<br>
+			<button type="button" class="button button2"><a href ="/homepage" style = "color:black;text-decoration:none">Go To Home Page</a></button>
+			`;
 			reset.disabled=true;
 		}
 		livs.textContent = life;

@@ -22,6 +22,7 @@ app.use(sessions({
   cookie: { maxAge: oneDay },
   resave: false
 }));
+var isUserLog = false;
 app.use(cookieParser());
 var session;
 app.use( express.json() );       
@@ -48,25 +49,71 @@ app.get('/',function(req,res){
 app.get('/logout',(req,res) => {
   req.session.destroy();
   res.redirect('/');
+  isUserLog = false;
 });
 app.get('/nummem',function(req,res){
-    res.sendFile(path.resolve(__dirname,'./numgame/numgame.html'))
+  if(isUserLog){
+    res.sendFile(path.resolve(__dirname,'./html/numgame.html'))
+  }
+  else{
+    res.redirect('/')
+  } 
 })
 app.get('/typing',function(req,res){
-  res.sendFile(path.resolve(__dirname,'./html/typing.html'))
+  if(isUserLog){
+    res.sendFile(path.resolve(__dirname,'./html/typing.html'))
+  }
+  else{
+    res.redirect('/')
+  } 
 })
 app.get('/rgb',function(req,res){
-  res.sendFile(path.resolve(__dirname,'./html/colorgameproj.html'))
+  if(isUserLog){
+    res.sendFile(path.resolve(__dirname,'./html/colorgameproj.html'))
+  }
+  else{
+    res.redirect('/')
+  } 
 })
-app.post("/request", (req, res) => {
-  res.json([{
-     name_recieved: req.body.name,
-     designation_recieved: req.body.designation
-  }])
-  console.log(req.body.finalscore);
+// score api
+//
+//
+app.post("/*score", (req, res) => {
+  let typ = req.body.game.toString();
+  console.log(typ)
+  if(typ === "typing"){
+    var updateDocument = {
+      $set: { "typing" : req.body.score }
+    }
+  }
+  else if(typ === "rgb"){
+    var updateDocument = {
+      $set: { "rgb" : req.body.score }
+    }
+  }
+  else{
+    var updateDocument = {
+      $set: { "numgame" : req.body.score }
+    }
+  }
+  
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("mydb");
+    dbo.collection("NHB").updateOne({"username" : session.userid},updateDocument);
+  });
+  console.log(req.body.score)
 })
+//
+//
+//
 app.get('/homepage',function(req,res){
-  res.sendFile(path.resolve(__dirname,'./html/homepage.html'))
+  if(isUserLog){
+    res.sendFile(path.resolve(__dirname,'./html/homepage.html'))
+  }
+  else{
+    res.redirect('/')
+  }
 });
 app.post('/auth',function(req,resul){
     if(req.body.username==null){
@@ -74,15 +121,15 @@ app.post('/auth',function(req,resul){
         MongoClient.connect(url, function(err, db) {
           if (err) throw err;
           var dbo = db.db("mydb");
-          dbo.collection("customers").find(myobj).toArray(function(err,res){
+          dbo.collection("NHB").find(myobj).toArray(function(err,res){
             if(err) throw err;
             if(res.length===0){
               resul.sendFile(path.resolve(__dirname,'./html/index.html'));
             }
             else{
               session = req.session;
-              session.userid = req.body.email;
-              console.log(session);
+              session.userid = res[0].username;
+              isUserLog = true;
               resul.redirect("/homepage");
             }
             db.close();
@@ -94,18 +141,18 @@ app.post('/auth',function(req,resul){
         MongoClient.connect(url, function(err, db) {
           if (err) throw err;
           var dbo = db.db("mydb");
-          dbo.collection("customers").find({"email":myobj["email"]}).toArray().then(items=>{
+          dbo.collection("NHB").find({"email":myobj["email"]}).toArray().then(items=>{
             if(items.length>0){
               console.log("user already exists"); 
             }
             else{
               console.log("ok");
-              dbo.collection("customers").insertOne(myobj).then( items => {
+              dbo.collection("NHB").insertOne(myobj).then( items => {
                 console.log(items);
               }).then(items=>{db.close();})
               session = req.session;
-              session.userid = req.body.email;
-              console.log(session);
+              session.userid = req.body.username;
+              isUserLog = true;
                 console.log("1 document inserted");
               resul.redirect("/homepage");
             }

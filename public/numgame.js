@@ -54,12 +54,19 @@ function check(){
 		start.style.visibility="hidden";
 		input.style.visibility="hidden";
 		butt.style.visibility="hidden";
+		data = {"score":level ,"game":"numgame"}
+		const options = {
+			method : "POST",
+			body : JSON.stringify(data),
+			headers : {
+				'Content-type' : 'application/json'
+			}
+		}
+		fetch('/typescore',options)
 		container.innerHTML=`<h1>GAME OVER</h1><br><br><h3>Your High Score ${level}
 		</h3>
 		<div id = "nav">
-		<button type="button" class="btn btn-outline-warning"><a href ="/" style = "color:black;text-decoration:none">Go To Home Page</a></button>
-		<button type="button" class="btn btn-outline-danger"><a href ="/" style = "color:black;text-decoration:none">Retry</a></button>
+		<button type="button" class="btn btn-outline-warning"><a href ="/homepage" style = "color:black;text-decoration:none">Go To Home Page</a></button>
 		</div>`
 	}
-
 }

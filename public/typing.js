@@ -82,6 +82,16 @@ function end(){
 		input.value="";
 		gameover.play();
 		generate.textContent="GAME OVER";
+		score = correct - wrong;
+		data = {score ,"game":"typing"}
+		const options = {
+			method : "POST",
+			body : JSON.stringify(data),
+			headers : {
+				'Content-type' : 'application/json'
+			}
+		}
+		fetch('/typescore',options)
 	}
 }
 }
